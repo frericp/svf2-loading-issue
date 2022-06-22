@@ -1,0 +1,8 @@
+.vs/
+tools
+artifacts
+test-results
+code-coverage-results
+NuGet.Config
+obj
+bin
