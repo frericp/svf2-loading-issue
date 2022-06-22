@@ -17,7 +17,7 @@ After starting the load for all models, we are then looking in the Map for any r
 ### Prerequisites
 
 * A Forge application with **Data Management API** and **Model Derivative API** APIs enabled
-* An zipped Inventor assembly to use for creating SVFs
+* An zipped Inventor assembly to use for creating SVFs. `Exhaust Assembly.zip` in the root of the repo can be used for this
 * A token server that can accept requests from the web app and return a Forge token with sufficient permissions to read viewables (`viewables:read` scope)
     * There is a `TokenServer` project in this repo built with .NET 6 that can be used for this. The [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) is needed in order to run this project
 * A web server to serve the web application
