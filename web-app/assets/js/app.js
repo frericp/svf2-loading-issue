@@ -9,19 +9,22 @@ let modelBuilder;
 let view;
 let modelEventStatusById = new Map();
 
+const token = '';
+
 async function setupViewer() {
     let options = {
         env: 'AutodeskProduction2',
         api: 'streamingV2',
         getAccessToken: (onGetAccessToken) => {
-            fetch(tokenFetchingUrl)
+            /*fetch(tokenFetchingUrl)
                 .then(response => response.json())
                 .then(data => {
 
                     let accessToken = data["accessToken"];
                     let expireTimeSeconds = data["expiresIn"];
                     onGetAccessToken(accessToken, expireTimeSeconds);
-                })
+                })*/
+             onGetAccessToken(token, 3600);
         }
     };
     
@@ -54,7 +57,7 @@ async function setupViewer() {
     viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, onGeometryLoaded);
     viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, onTreeCreated);
 
-    await addMultipleSvf();
+    await addMultipleSvf2();
 
     if (modelEventStatusById.size > 0) {
         console.info('Not all loaded models fired expected events. Checking for expected data.')
@@ -88,6 +91,14 @@ async function addMultipleSvf() {
     for (const modelData of getModelData()) {
         await addSvf(modelData.documentId, viewer, modelData.matrix);
     };
+}
+
+async function addMultipleSvf2() {
+  const promises = [];
+  for (const modelData of getModelData()) {
+      promises.push(addSvf(modelData.documentId, viewer, modelData.matrix));
+  };
+  await Promise.all(promises);
 }
 
 async function addSvf(documentId, view, matrixArray) {
